@@ -33,6 +33,24 @@ class Tree {
 
         return root
     }
+
+    insert(root, data) {
+        if (root === null) {
+            return new Node(data)
+        }
+
+        if (root.data === data) {
+            return root
+        }
+
+        if (data < root.data) {
+            root.leftNode = this.insert(root.leftNode, data)
+        } else if (data > root.data) {
+            root.rightNode = this.insert(root.rightNode, data)
+        }
+
+        return root
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -51,5 +69,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 const testTree = new Tree(testArray)
+
+testTree.insert(testTree.root, 100)
+testTree.insert(testTree.root, 6)
+testTree.insert(testTree.root, 12)
 
 prettyPrint(testTree.root)
