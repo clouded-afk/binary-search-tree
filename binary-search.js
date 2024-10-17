@@ -120,8 +120,18 @@ class Tree {
         }
     }
 
-    inOrder(callback) {
+    inOrder(callback, node = this.root) {
+        if (!callback) {
+            throw new Error('Callback function required as argument')
+        }   
 
+        if(node === null) {
+            return
+        }
+
+        this.inOrder(callback, node.leftNode)
+        callback(node)
+        this.inOrder(callback, node.rightNode)
     }
     
     preOrder(callback) {
@@ -163,7 +173,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
-function printElements(node) {
+function print(node) {
     console.log(node.data)
 }
 
@@ -178,3 +188,5 @@ testTree.insert(testTree.root, 12)
 testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
+
+testTree.inOrder(print)
