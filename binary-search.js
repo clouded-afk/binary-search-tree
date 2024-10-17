@@ -173,8 +173,17 @@ class Tree {
         return Math.max(leftTreeHeight, rightTreeHeight) + 1
     }
 
-    depth(node) {
+    depth(root, value) {
+        if (root === null) {
+            return -1
+        }
 
+        let depth = -1
+
+        if ((root.data === value) || (depth = this.depth(root.leftNode, value)) >= 0 || (depth = this.depth(root.rightNode, value)) >= 0) {
+            return depth + 1
+        }
+        return depth
     }
 
     isBalanced() {
@@ -212,4 +221,4 @@ testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
 
-console.log(testTree.height(testTree.root))
+console.log(testTree.depth(testTree.root, 5))
