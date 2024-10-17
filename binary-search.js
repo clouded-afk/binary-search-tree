@@ -95,6 +95,59 @@ class Tree {
 
         return this.find(root.leftNode, value)
     }
+
+    levelOrder(callback) {
+        if (!callback) {
+            throw new Error('Callback function required as argument')
+        }
+
+        const queue = []
+
+        if (this.root) {
+            queue.push(this.root)
+        }
+
+        while (queue.length > 0) {
+            let node = queue.shift()
+            callback(node)
+
+            if (node.leftNode) {
+                queue.push(node.leftNode)
+            }
+            if (node.rightNode) {
+                queue.push(node.rightNode)
+            }
+        }
+    }
+
+    inOrder(callback) {
+
+    }
+    
+    preOrder(callback) {
+
+    }
+
+    postOrder(callback) {
+
+    }
+
+    height(node) {
+
+    }
+
+    depth(node) {
+
+    }
+
+    isBalanced() {
+
+    }
+
+    rebalance() {
+
+    }
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -108,7 +161,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node.left !== null) {
       prettyPrint(node.leftNode, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
-  };
+};
+
+function printElements(node) {
+    console.log(node.data)
+}
 
 const testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
@@ -117,8 +174,7 @@ const testTree = new Tree(testArray)
 testTree.insert(testTree.root, 100)
 testTree.insert(testTree.root, 6)
 testTree.insert(testTree.root, 12)
+
 testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
-
-console.log(testTree.find(testTree.root, 324))
