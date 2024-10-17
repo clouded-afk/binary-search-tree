@@ -180,15 +180,27 @@ class Tree {
 
         let depth = -1
 
-        if ((root.data === value) || (depth = this.depth(root.leftNode, value)) >= 0 || (depth = this.depth(root.rightNode, value)) >= 0) {
+        if ((root.data == value) || (depth = this.depth(root.leftNode, value)) >= 0 || (depth = this.depth(root.rightNode, value)) >= 0) {
             return depth + 1
         }
         return depth
     }
 
-    isBalanced() {
+    isBalanced(root) {
+        if (root === null) {
+            return true
+        }
 
+        const leftHeight = this.height(root.leftNode)
+        const rightHeight = this.height(root.rightNode)
+
+        if (Math.abs(leftHeight - rightHeight) <= 1 && this.isBalanced(root.leftNode) && this.isBalanced(root.rightNode)) {
+            return true
+        }
+
+        return false
     }
+    
 
     rebalance() {
 
@@ -213,12 +225,6 @@ const testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 const testTree = new Tree(testArray)
 
-testTree.insert(testTree.root, 100)
-testTree.insert(testTree.root, 6)
-testTree.insert(testTree.root, 12)
-
-testTree.delete(testTree.root, 67)
-
 prettyPrint(testTree.root)
 
-console.log(testTree.depth(testTree.root, 5))
+console.log(testTree.isBalanced(testTree.root))
