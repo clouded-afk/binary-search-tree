@@ -148,8 +148,18 @@ class Tree {
         this.preOrder(callback, node.rightNode)
     }
 
-    postOrder(callback) {
+    postOrder(callback, node = this.root) {
+        if (!callback) {
+            throw new Error('Callback function required as argument')
+        }
 
+        if (node === null) {
+            return
+        }
+
+        this.postOrder(callback, node.leftNode)
+        this.postOrder(callback, node.rightNode)
+        callback(node)
     }
 
     height(node) {
@@ -183,10 +193,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
-function print(node) {
-    console.log(node.data)
-}
-
 const testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 const testTree = new Tree(testArray)
@@ -198,5 +204,3 @@ testTree.insert(testTree.root, 12)
 testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
-
-testTree.preOrder(print)
