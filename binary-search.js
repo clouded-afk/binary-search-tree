@@ -163,7 +163,14 @@ class Tree {
     }
 
     height(node) {
+        if (node === null) {
+            return -1
+        }
 
+        let leftTreeHeight = this.height(node.leftNode)
+        let rightTreeHeight = this.height(node.rightNode)
+
+        return Math.max(leftTreeHeight, rightTreeHeight) + 1
     }
 
     depth(node) {
@@ -204,3 +211,5 @@ testTree.insert(testTree.root, 12)
 testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
+
+console.log(testTree.height(testTree.root))
