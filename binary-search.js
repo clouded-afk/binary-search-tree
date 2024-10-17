@@ -134,8 +134,18 @@ class Tree {
         this.inOrder(callback, node.rightNode)
     }
     
-    preOrder(callback) {
+    preOrder(callback, node = this.root) {
+        if (!callback) {
+            throw new Error('Callback function required as argument')
+        }
+        
+        if (node === null) {
+            return
+        }
 
+        callback(node)
+        this.preOrder(callback, node.leftNode)
+        this.preOrder(callback, node.rightNode)
     }
 
     postOrder(callback) {
@@ -189,4 +199,4 @@ testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
 
-testTree.inOrder(print)
+testTree.preOrder(print)
