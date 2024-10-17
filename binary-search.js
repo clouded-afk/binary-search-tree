@@ -34,19 +34,19 @@ class Tree {
         return root
     }
 
-    insert(root, data) {
+    insert(root, value) {
         if (root === null) {
-            return new Node(data)
+            return new Node(value)
         }
 
-        if (root.data === data) {
+        if (root.data === value) {
             return root
         }
 
-        if (data < root.data) {
-            root.leftNode = this.insert(root.leftNode, data)
-        } else if (data > root.data) {
-            root.rightNode = this.insert(root.rightNode, data)
+        if (value < root.data) {
+            root.leftNode = this.insert(root.leftNode, value)
+        } else if (value > root.data) {
+            root.rightNode = this.insert(root.rightNode, value)
         }
 
         return root
@@ -60,14 +60,14 @@ class Tree {
         return node;
     }
 
-    delete(root, data) {
+    delete(root, value) {
         if (root === null) {
             return null
         }
-         if (root.data > data) {
-            root.leftNode = this.delete(root.leftNode, data)
-         } else if (root.data < data) {
-            root.rightNode = this.delete(root.rightNode, data)
+         if (root.data > value) {
+            root.leftNode = this.delete(root.leftNode, value)
+         } else if (root.data < value) {
+            root.rightNode = this.delete(root.rightNode, value)
          } else {
             if (root.leftNode === null) {
                 return root.rightNode
@@ -82,6 +82,18 @@ class Tree {
             root.rightNode = this.delete(root.rightNode, successor.data)
          }
          return root
+    }
+
+    find(root, value) {
+        if (root === null || root.data === value) {
+            return root
+        }
+
+        if (root.data < value) {
+            return this.find(root.rightNode, value)
+        }
+
+        return this.find(root.leftNode, value)
     }
 }
 
@@ -108,3 +120,5 @@ testTree.insert(testTree.root, 12)
 testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
+
+console.log(testTree.find(testTree.root, 324))
