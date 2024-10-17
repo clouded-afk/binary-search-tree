@@ -51,6 +51,38 @@ class Tree {
 
         return root
     }
+
+    getSuccessor(node) {
+        node = node.rightNode
+        while (node !== null && node.leftNode !== null) {
+            node = node.leftNode
+        }
+        return node;
+    }
+
+    delete(root, data) {
+        if (root === null) {
+            return null
+        }
+         if (root.data > data) {
+            root.leftNode = this.delete(root.leftNode, data)
+         } else if (root.data < data) {
+            root.rightNode = this.delete(root.rightNode, data)
+         } else {
+            if (root.leftNode === null) {
+                return root.rightNode
+            }
+
+            if (root.rightNode === null) {
+                return root.leftNode
+            }
+
+            let successor = this.getSuccessor(root)
+            root.data = successor.data
+            root.rightNode = this.delete(root.rightNode, successor.data)
+         }
+         return root
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -73,5 +105,6 @@ const testTree = new Tree(testArray)
 testTree.insert(testTree.root, 100)
 testTree.insert(testTree.root, 6)
 testTree.insert(testTree.root, 12)
+testTree.delete(testTree.root, 67)
 
 prettyPrint(testTree.root)
