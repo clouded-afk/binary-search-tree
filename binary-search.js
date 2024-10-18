@@ -214,31 +214,6 @@ class Tree {
 
 }
 
-const prettyPrint = (node, prefix = "", isLeft = true) => {
-    if (node === null) {
-      return;
-    }
-    if (node.right !== null) {
-      prettyPrint(node.rightNode, `${prefix}${isLeft ? "│   " : "    "}`, false);
-    }
-    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-    if (node.left !== null) {
-      prettyPrint(node.leftNode, `${prefix}${isLeft ? "    " : "│   "}`, true);
-    }
-};
-
-const testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-
-const testTree = new Tree(testArray)
-
-testTree.insert(testTree.root, 12)
-
-prettyPrint(testTree.root)
-
-console.log(testTree.isBalanced(testTree.root))
-
-testTree.rebalance()
-
-prettyPrint(testTree.root)
-
-console.log(testTree.isBalanced(testTree.root))
+export {
+    Tree
+}
