@@ -203,7 +203,13 @@ class Tree {
     
 
     rebalance() {
+        let inOrderArray = []
 
+        this.inOrder(node => {
+            inOrderArray.push(node.data)
+        })
+
+        this.root = this.buildTree(inOrderArray)
     }
 
 }
@@ -224,6 +230,14 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 const testTree = new Tree(testArray)
+
+testTree.insert(testTree.root, 12)
+
+prettyPrint(testTree.root)
+
+console.log(testTree.isBalanced(testTree.root))
+
+testTree.rebalance()
 
 prettyPrint(testTree.root)
 
